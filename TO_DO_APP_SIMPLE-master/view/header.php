@@ -14,6 +14,7 @@
 
 </head>
 <body>
+<button  type="button" classs="btn btn-primary mb-2 ml-2" onclick="location='h.php?action=Log_Out'" >Log_OUT</button>
 <div class="container">
   <div class="row justify-content-center align-items-center main-row">
     <div class="col shadow main-col bg-white">

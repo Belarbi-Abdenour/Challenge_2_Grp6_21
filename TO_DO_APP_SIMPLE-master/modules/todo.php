@@ -2,8 +2,9 @@
 
 switch($vars['action']){
     case "list":{
-        $items = $db->query('SELECT * FROM items')->fetchAll();
-        
+        session_start();
+        $i = $_SESSION['id'];
+        $items = $db->query("SELECT * FROM items WHERE id_u='$i';")->fetchAll();
         include("view/header.php");
         include("view/list.php");
         include("view/footer.php");
@@ -11,20 +12,28 @@ switch($vars['action']){
     }break;
 
     case "do_add":{
-        $db->query("INSERT INTO items (title) VALUES (?)",$vars['title']);
-        header("location: index.php");
+        session_start();
+        $i=$_SESSION['id'];
+        $db->query("INSERT INTO items (title,id_u) VALUES (?,?)",$vars['title'],$i);
+        header("Location: h.php");
         exit;        
         
     }break;
     
     case "delete":{
-        //Some code here to delete ....
+        $id = $_GET['item_id'];
+       $db->query("DELETE FROM items WHERE item_id='$id';");
+       header("Location: h.php");
         exit;        
     }break;
     
-    case "do_edit":{
-        //some code here to edit and save...
+    case "Log_Out":{
+        session_destroy();
+        header("Location: index.php");
         exit;
+
+        
+        
     }break;
     
     case "help":{
